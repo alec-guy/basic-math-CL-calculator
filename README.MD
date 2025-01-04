@@ -7,18 +7,18 @@ Why is that the name of this simple calculator?
 Because I used it for no reason to make this program in Haskell. 
 It offers no unique benefit if only to make it sound cooler. 
 
-> _This calculator supports_
->> - sin 
-  - cosine 
-  - tangent 
-  - sqrt 
-  - (+) addition
-  - (-) subtraction
-  - (- x) negative numbers as prefix notation
-  -  exponenation (^) operator
-  - (/) division 
-  - (help) a useless help command that displays bad helping output
-  - and a (!) or (exit) command which stops the program.
+>  _This calculator supports_
+>  - sin 
+>  - cosine 
+>  - tangent 
+> - sqrt 
+>  - (+) addition
+>  - (-) subtraction
+>  - (- x) negative numbers as prefix notation
+>  -  exponenation (^) operator
+>  - (/) division 
+>  - (help) a useless help command that displays bad helping output
+>  - and a (!) or (exit) command which stops the program.
 >
 #### Example of what you will see when running the program as of (1/4/2025)
    ```text 

@@ -35,7 +35,7 @@ showLastExpression = do
 getCalculatorInput :: StateT (Maybe (MathExpr Double)) IO () 
 getCalculatorInput = do 
     lift $ do 
-        putStr "gadts >"
+        putStr "basic-math >"
         hFlush stdout 
     input <- lift getLine 
     case parse parseCalculatorInput ""  input of 
@@ -61,7 +61,7 @@ runCalculator = do
 
 showHelpMenu :: IO ()
 showHelpMenu = do 
-    putStrLn "This calculator supports"
+    putStrLn "-This calculator supports"
     putStrLn "-sin"
     putStrLn "-cosine"
     putStrLn "-tangent"
@@ -76,7 +76,7 @@ showHelpMenu = do
     
 main :: IO () 
 main = do 
-    putStrLn "GADTS, enter 'help' for help"
+    putStrLn "Basic Math, enter 'help' for help"
     evalStateT runCalculator Nothing
 
 ------------------------------------------------------------------
@@ -93,6 +93,7 @@ data MathExpr a where
     Cos      ::  MathExpr Double -> MathExpr Double 
     Tan      ::  MathExpr Double -> MathExpr Double 
     Sqrt     ::  MathExpr Double -> MathExpr Double
+    SecToMin ::  MathExpr Double  -> MathExpr Double
 
 instance Show (MathExpr Double) where 
     show (Number d)      = show d 
@@ -106,7 +107,7 @@ instance Show (MathExpr Double) where
     show (Cos expr)       = "cos" ++ (parenthesize expr)
     show (Tan expr)       = "tan" ++ (parenthesize expr)
     show (Sqrt expr)      = "sqrt" ++ (parenthesize expr)
-
+    show (SecToMin expr)  = "secToMin" ++ (parenthesize expr)
 parenthesize :: MathExpr Double -> String 
 parenthesize expr =  "(" ++ (show expr) ++ ")"
 
@@ -132,6 +133,8 @@ eval mathexpr =
      (Cos expr)       -> cos (eval expr)
      (Tan expr)       -> tan (eval expr)
      (Sqrt expr)      -> sqrt (eval expr)
+     (SecToMin expr)  -> (eval expr) / 60 
+
 -----------------------------------------------------------------
 -- Parser 
 type Parser = Parsec Void String 
@@ -182,6 +185,7 @@ table =
      ,Prefix (Cos <$ lexemeParser (string "cos"))
      ,Prefix (Tan <$ lexemeParser (string "tan"))
      ,Prefix (Sqrt <$ lexemeParser (string "sqrt"))
+     ,Prefix (SecToMin <$ lexemeParser (string "secToMin"))
      ]
     ,[InfixL (Pow <$ lexemeParser (string "^"))
      ,InfixL (Mult <$ lexemeParser (string "*"))

@@ -13,7 +13,7 @@ _This calculator supports_
 - cosine 
 - tangent 
 - sqrt 
-- +
+- (+) addition
 - (-) subtraction
 - (- x) negative numbers as prefix notation
 -  exponenation (^) operator

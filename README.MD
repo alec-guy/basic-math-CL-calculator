@@ -1,6 +1,7 @@
 # Command line calculator 
 
    
+   ```text 
    =Calculator=
    :22 + 21
    Expression = (22.0) + (21.0)
@@ -10,3 +11,4 @@
    Evaluation = 22.208333333333332
    :!
    Thank you for using this calculator
+   ```

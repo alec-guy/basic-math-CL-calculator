@@ -1,8 +1,8 @@
-# gadts
+# Gatds
 
 #### Gadts | a command line calculator
  
-#### _This calculator supports_
+#### This calculator supports
 >  - sin 
 >  - cosine 
 >  - tangent 

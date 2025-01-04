@@ -35,7 +35,7 @@ showLastExpression = do
 getCalculatorInput :: StateT (Maybe (MathExpr Double)) IO () 
 getCalculatorInput = do 
     lift $ do 
-        putStr "basic-math >"
+        putStr "basic-math > "
         hFlush stdout 
     input <- lift getLine 
     case parse parseCalculatorInput ""  input of 

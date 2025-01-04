@@ -13,7 +13,7 @@
 >  -  exponenation (^) operator
 >  - (/) division 
 >  - (help) a useless help command that displays bad helping output
->> ```haskell
+   ```haskell
     showHelpMenu :: IO ()
     showHelpMenu = do 
         putStrLn "! to quit or type exit"

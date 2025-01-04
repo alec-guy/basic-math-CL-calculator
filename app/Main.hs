@@ -20,7 +20,8 @@ import Control.Monad
 import System.Exit (exitSuccess)
 import Text.Read (readMaybe)
 import Data.List.NonEmpty as NE (fromList, head)
-import Data.Set as Set 
+import Data.Set as Set (singleton)
+import Data.Either (fromRight)
 
 showLastExpression :: StateT (Maybe (MathExpr Double)) IO ()
 showLastExpression = do 
@@ -133,7 +134,11 @@ lexemeParser = lexeme spaceParser
 
 parseNumber ::  Parser (MathExpr Double) 
 parseNumber = lexemeParser $ do 
-    num <- many digitChar
+    num <- do 
+        num'       <- many digitChar
+        point      <- observing $ L.singleton <$> try (char '.')
+        afterPoint <- observing $ try (many digitChar) 
+        return (num' ++ (fromRight [] point) ++ (fromRight [] afterPoint))
     case (readMaybe num) :: Maybe Double of 
         Nothing  -> 
             case Prelude.null num of 

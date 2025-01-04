@@ -79,6 +79,7 @@ data MathExpr a where
     Pow     ::  MathExpr Double -> MathExpr Double -> MathExpr Double 
     Neg     ::  MathExpr Double -> MathExpr Double 
     Number  ::  Double -> MathExpr Double 
+    Trig    :: MathExpr Double -> MathExpr Double
 
 instance Show (MathExpr Double) where 
     show (Number d)      = show d 
@@ -150,7 +151,9 @@ term = lexemeParser ((between  (string "(") (string ")")) expr <|> parseNumber)
     
 
 table = 
-    [[Prefix (Neg <$ lexemeParser (string "-"))]
+    [[Prefix (Neg <$ lexemeParser (string "-"))
+     ,Prefix (Trig <$ lexemeParser parseTrig)
+     ]
     ,[InfixL (Pow <$ lexemeParser (string "^"))
      ,InfixL (Mult <$ lexemeParser (string "*"))
      ,InfixL (Div <$ lexemeParser (string "/"))
@@ -159,5 +162,7 @@ table =
      ,InfixL (Sub <$ lexemeParser (string "-"))
      ]
     ]
-
+parseTrig :: Parser (MathExpr Double)
+parseTrig = do 
+    choice [string "sin", string "cos", string "tan"]
 ----------------------------------------------------------------

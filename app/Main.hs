@@ -60,7 +60,7 @@ runCalculator = do
 
 showHelpMenu :: IO ()
 showHelpMenu = do 
-    putStrLn "! to quit"
+    putStrLn "! to quit or type exit"
     putStrLn "help for this menu"
     putStrLn "Normal mode is to enter mathematical expressions"
 
@@ -82,6 +82,7 @@ data MathExpr a where
     Sin      ::  MathExpr Double -> MathExpr Double
     Cos      ::  MathExpr Double -> MathExpr Double 
     Tan      ::  MathExpr Double -> MathExpr Double 
+    Sqrt     ::  MathExpr Double -> MathExpr Double
 
 instance Show (MathExpr Double) where 
     show (Number d)      = show d 
@@ -94,9 +95,11 @@ instance Show (MathExpr Double) where
     show (Sin expr)       = "sin" ++ (parenthesize expr)
     show (Cos expr)       = "cos" ++ (parenthesize expr)
     show (Tan expr)       = "tan" ++ (parenthesize expr)
+    show (Sqrt expr)      = "sqrt" ++ (parenthesize expr)
 
 parenthesize :: MathExpr Double -> String 
 parenthesize expr =  "(" ++ (show expr) ++ ")"
+
 
 data Command where 
     Exit :: Command 
@@ -118,6 +121,7 @@ eval mathexpr =
      (Sin expr)       -> sin (eval expr)
      (Cos expr)       -> cos (eval expr)
      (Tan expr)       -> tan (eval expr)
+     (Sqrt expr)      -> sqrt (eval expr)
 -----------------------------------------------------------------
 -- Parser 
 type Parser = Parsec Void String 
@@ -142,7 +146,7 @@ parseCalculatorInput = eitherP parseCommand expr
 
 parseExit :: Parser Command
 parseExit = do 
-    void $ string "!"
+    void $ (string "!") <|> (string "exit")
     return $ Exit 
 
 help :: Parser Command 
@@ -163,6 +167,7 @@ table =
      ,Prefix (Sin <$ lexemeParser (string "sin"))
      ,Prefix (Cos <$ lexemeParser (string "cos"))
      ,Prefix (Tan <$ lexemeParser (string "tan"))
+     ,Prefix (Sqrt <$ lexemeParser (string "sqrt"))
      ]
     ,[InfixL (Pow <$ lexemeParser (string "^"))
      ,InfixL (Mult <$ lexemeParser (string "*"))

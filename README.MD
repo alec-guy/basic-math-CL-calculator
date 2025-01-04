@@ -1,4 +1,6 @@
-# GADts a brain damaged command line calculator
+# gadts
+
+#### a command line calculator 
 
    
    ```text 

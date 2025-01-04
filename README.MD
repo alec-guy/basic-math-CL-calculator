@@ -13,8 +13,13 @@ _This calculator supports_
 - cosine 
 - tangent 
 - sqrt 
-
-and normal arithmetic
+- +
+- (-) subtraction
+- (- x) negative numbers as prefix notation
+-  exponenation (^) operator
+- (/) division 
+- a useless help command that displays bad helping output
+- and a (!) or (exit) command which stops the program.
 
    ```text 
    =Calculator=

@@ -16,13 +16,13 @@
 >  - and a (!) or (exit) command which stops the program.
 #### Example of what you will see when running the program as of (1/4/2025)
    ```text 
-   =Calculator=
-   :22 + 21
-   Expression = (22.0) + (21.0)
-   Evaluation = 43.0
-   :(29 / 24) + 21
-   Expression = ((29.0) / (24.0)) + (21.0)
-   Evaluation = 22.208333333333332
-   :!
-   Thank you for using this calculator
+      =Basic Math Calculator=
+      :21 + 21
+      Expression = (21.0) + (21.0)
+      Evaluation = 42.0
+      :25 + 25.1
+      Expression = (25.0) + (25.1)
+      Evaluation = 50.1
+      :exit
+      END
    ```

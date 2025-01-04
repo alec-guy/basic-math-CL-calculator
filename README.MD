@@ -1,6 +1,20 @@
-# Command line calculator 
+# Gatds
 
-   
+#### Gadts | a command line calculator
+ 
+#### This calculator supports
+>  - sin 
+>  - cosine 
+>  - tangent 
+> - sqrt 
+>  - (+) addition
+>  - (-) subtraction
+>  - (- x) negative numbers as prefix notation
+>  -  exponenation (^) operator
+>  - (/) division 
+>  - (help) a useless help command that displays bad helping output
+>  - and a (!) or (exit) command which stops the program.
+#### Example of what you will see when running the program as of (1/4/2025)
    ```text 
    =Calculator=
    :22 + 21

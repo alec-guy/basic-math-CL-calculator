@@ -1,8 +1,6 @@
 # gadts
 
-#### a command line calculator 
-
-This calculator supports 
+#### a command line calculator _This calculator supports_
 
 - sin 
 - cosine 

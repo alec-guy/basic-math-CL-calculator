@@ -2,7 +2,7 @@
 
 #### Gadts | a command line calculator
  
-####_This calculator supports_
+#### _This calculator supports_
 >  - sin 
 >  - cosine 
 >  - tangent 

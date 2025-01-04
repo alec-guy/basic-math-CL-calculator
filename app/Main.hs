@@ -35,7 +35,7 @@ showLastExpression = do
 getCalculatorInput :: StateT (Maybe (MathExpr Double)) IO () 
 getCalculatorInput = do 
     lift $ do 
-        putStr ":"
+        putStr "gadts >"
         hFlush stdout 
     input <- lift getLine 
     case parse parseCalculatorInput ""  input of 
@@ -45,7 +45,7 @@ getCalculatorInput = do
                 Left command -> 
                     case command of 
                         Exit -> lift $ do 
-                            putStrLn "Thank you for using this calculator -Alec"
+                            putStrLn "END"
                             exitSuccess 
                         Help -> do 
                             lift $ showHelpMenu 
@@ -61,13 +61,22 @@ runCalculator = do
 
 showHelpMenu :: IO ()
 showHelpMenu = do 
-    putStrLn "! to quit or type exit"
-    putStrLn "help for this menu"
-    putStrLn "Normal mode is to enter mathematical expressions"
-
+    putStrLn "This calculator supports"
+    putStrLn "-sin"
+    putStrLn "-cosine"
+    putStrLn "-tangent"
+    putStrLn "-sqrt"
+    putStrLn "-(+) addition"
+    putStrLn "-(-) subtraction"
+    putStrLn "-(-x) negative numbers as prefix notation"
+    putStrLn "-exponenation (^) operator"
+    putStrLn "-(/) division"
+    putStrLn "-! to quit or type exit"
+    putStrLn "-help for this menu"
+    
 main :: IO () 
 main = do 
-    putStrLn "=Basic Math Calculator="
+    putStrLn "GADTS, enter 'help' for help"
     evalStateT runCalculator Nothing
 
 ------------------------------------------------------------------
@@ -147,7 +156,7 @@ parseNumber = lexemeParser $ do
         (Just x) -> return $ Number x
 
 parseCalculatorInput :: Parser (Either Command (MathExpr Double))
-parseCalculatorInput = eitherP parseCommand expr 
+parseCalculatorInput = spaceParser *> (eitherP parseCommand expr) 
 
 parseExit :: Parser Command
 parseExit = do 

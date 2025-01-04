@@ -2,7 +2,15 @@
 
 #### a command line calculator 
 
-   
+This calculator supports 
+
+- sin 
+- cosine 
+- tangent 
+- sqrt 
+
+and normal arithmetic
+
    ```text 
    =Calculator=
    :22 + 21

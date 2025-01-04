@@ -13,6 +13,13 @@
 >  -  exponenation (^) operator
 >  - (/) division 
 >  - (help) a useless help command that displays bad helping output
+>> ```haskell
+    showHelpMenu :: IO ()
+    showHelpMenu = do 
+        putStrLn "! to quit or type exit"
+        putStrLn "help for this menu"
+        putStrLn "Normal mode is to enter mathematical expressions"
+   ```
 >  - and a (!) or (exit) command which stops the program.
 >
 #### Example of what you will see when running the program as of (1/4/2025)

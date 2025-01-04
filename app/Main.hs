@@ -44,7 +44,7 @@ getCalculatorInput = do
                 Left command -> 
                     case command of 
                         Exit -> lift $ do 
-                            putStrLn "Thank you for using this calculator"
+                            putStrLn "Thank you for using this calculator -Alec"
                             exitSuccess 
                         Help -> do 
                             lift $ showHelpMenu 
@@ -66,20 +66,22 @@ showHelpMenu = do
 
 main :: IO () 
 main = do 
-    putStrLn "=Calculator="
+    putStrLn "=Basic Math Calculator="
     evalStateT runCalculator Nothing
 
 ------------------------------------------------------------------
 -- Types
 data MathExpr a where 
-    Add     ::  MathExpr Double -> MathExpr Double -> MathExpr Double
-    Sub     ::  MathExpr Double -> MathExpr Double -> MathExpr Double  
-    Mult    ::  MathExpr Double -> MathExpr Double -> MathExpr Double 
-    Div     ::  MathExpr Double -> MathExpr Double -> MathExpr Double
-    Pow     ::  MathExpr Double -> MathExpr Double -> MathExpr Double 
-    Neg     ::  MathExpr Double -> MathExpr Double 
-    Number  ::  Double -> MathExpr Double 
-    Trig    :: MathExpr Double -> MathExpr Double
+    Add      ::  MathExpr Double -> MathExpr Double -> MathExpr Double
+    Sub      ::  MathExpr Double -> MathExpr Double -> MathExpr Double  
+    Mult     ::  MathExpr Double -> MathExpr Double -> MathExpr Double 
+    Div      ::  MathExpr Double -> MathExpr Double -> MathExpr Double
+    Pow      ::  MathExpr Double -> MathExpr Double -> MathExpr Double 
+    Neg      ::  MathExpr Double -> MathExpr Double 
+    Number   ::  Double -> MathExpr Double 
+    Sin      ::  MathExpr Double -> MathExpr Double
+    Cos      ::  MathExpr Double -> MathExpr Double 
+    Tan      ::  MathExpr Double -> MathExpr Double 
 
 instance Show (MathExpr Double) where 
     show (Number d)      = show d 
@@ -89,6 +91,9 @@ instance Show (MathExpr Double) where
     show (Mult expr expr') = (parenthesize expr) ++ " * " ++ (parenthesize expr')
     show (Div expr expr')  = (parenthesize expr) ++ " / " ++ (parenthesize expr')
     show (Pow expr expr') =  (parenthesize expr) ++ " ^ " ++ (parenthesize expr')
+    show (Sin expr)       = "sin" ++ (parenthesize expr)
+    show (Cos expr)       = "cos" ++ (parenthesize expr)
+    show (Tan expr)       = "tan" ++ (parenthesize expr)
 
 parenthesize :: MathExpr Double -> String 
 parenthesize expr =  "(" ++ (show expr) ++ ")"
@@ -110,6 +115,9 @@ eval mathexpr =
      (Mult expr expr2) -> (eval expr) * (eval expr2)
      (Div expr expr2) -> (eval expr) / (eval expr2)
      (Pow expr expr2) -> (eval expr) ^ (round (eval expr2))
+     (Sin expr)       -> sin (eval expr)
+     (Cos expr)       -> cos (eval expr)
+     (Tan expr)       -> tan (eval expr)
 -----------------------------------------------------------------
 -- Parser 
 type Parser = Parsec Void String 
@@ -145,14 +153,16 @@ parseCommand =
     choice [parseExit, help]
 
 
-
+parens = (between  (string "(") (string ")"))
 expr = lexemeParser (makeExprParser term table <?> "expression")
-term = lexemeParser ((between  (string "(") (string ")")) expr <|> parseNumber)
+term = lexemeParser (parens expr <|> parseNumber)
     
 
 table = 
     [[Prefix (Neg <$ lexemeParser (string "-"))
-     ,Prefix (Trig <$ lexemeParser parseTrig)
+     ,Prefix (Sin <$ lexemeParser (string "sin"))
+     ,Prefix (Cos <$ lexemeParser (string "cos"))
+     ,Prefix (Tan <$ lexemeParser (string "tan"))
      ]
     ,[InfixL (Pow <$ lexemeParser (string "^"))
      ,InfixL (Mult <$ lexemeParser (string "*"))
@@ -162,7 +172,6 @@ table =
      ,InfixL (Sub <$ lexemeParser (string "-"))
      ]
     ]
-parseTrig :: Parser (MathExpr Double)
-parseTrig = do 
-    choice [string "sin", string "cos", string "tan"]
+
+
 ----------------------------------------------------------------

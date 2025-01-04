@@ -18,7 +18,7 @@ _This calculator supports_
 - (- x) negative numbers as prefix notation
 -  exponenation (^) operator
 - (/) division 
-- a useless help command that displays bad helping output
+- (help) a useless help command that displays bad helping output
 - and a (!) or (exit) command which stops the program.
 
 #### Example of what you will see when running the program as of (1/4/2025)

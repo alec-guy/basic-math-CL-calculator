@@ -71,6 +71,7 @@ showHelpMenu = do
     putStrLn "-(-x) negative numbers as prefix notation"
     putStrLn "-exponenation (^) operator"
     putStrLn "-(/) division"
+    putStrLn "secToMin function that converts seconds to minutes"
     putStrLn "-! to quit or type exit"
     putStrLn "-help for this menu"
     

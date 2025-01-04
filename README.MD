@@ -12,6 +12,7 @@
 >  - (- x) negative numbers as prefix notation
 >  -  exponenation (^) operator
 >  - (/) division 
+>  - secToMin function that converts seconds to minutes
 >  - (help) a help command that displays helping output
 >  - and a (!) or (exit) command which stops the program.
 #### Example of what you will see when running the program as of (1/4/2025)
